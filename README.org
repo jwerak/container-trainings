@@ -1,0 +1,11 @@
+* Containers training
+
+This is a repo with few containers related trainings.
+
+Current trainings:
+- [[./slides/containers-intro/][containers-intro]]
+
+** Publish slides
+#+begin_src bash
+gsutil rsync -R  ./slides/ gs://trainings.docker-skoleni.cz/
+#+end_src
