@@ -76,8 +76,8 @@
      .inverse, .inverse h1, .inverse h2, .inverse h3, .inverse a, inverse a > code { color: #fff; }
 
      /* Sidebar Layout: grey out */
-     .left-column h2, .left-column h3, .left-column h4 { color: #a5a5a5; }
-     .left-column h2:last-of-type, .left-column h3:last-child , .left-column h4:last-child { color: #824323; }
+/* .left-column h2, .left-column h3, .left-column h4 { color: #a5a5a5; }
+   .left-column h2:last-of-type, .left-column h3:last-child , .left-column h4:last-child { color: #824323; } */
 
      /* Two Column Layout*/
      .pull-left h2, .pull-left h3, .pull-left h4 { color: #824323; }

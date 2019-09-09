@@ -4,7 +4,7 @@
 <head>
     <title>Containers Intro</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="..//static/css/chocolate.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/chocolate.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -30,8 +30,8 @@ class: top
 
 title: Containers Intro
 place: Concur
-date: 20190606
-datenice: 2019-06-06
+date: 20190909
+datenice: 2019-09-09
 email: jakub.veverka@sap.com
 author: Jakub Veverka
 examples: https://github.com/jwerak/container-examples
@@ -322,7 +322,7 @@ ee984e0ade27 spotify  "spotify"              7 hours ago  Up 7 hours            
 * Run process in container and do interactive attach
   * `docker run --rm -ti debian bash`
 * Run detached container
-  * `docker run -d -ti debian ping kubernetes.io`
+  * `docker run -d debian ping kubernetes.io`
 * List containers (`-a` includes stopped)
   * `docker ps -a`
 
@@ -361,7 +361,7 @@ ee984e0ade27 spotify  "spotify"              7 hours ago  Up 7 hours            
 ## Lab: Backup MySQL database
 
 1. Start MySQL database in container
-  * `docker run --name db -d -ti -e MYSQL_ALLOW_EMPTY_PASSWORD=1 mariadb`
+  * `docker run --name db -d -e MYSQL_ALLOW_EMPTY_PASSWORD=1 mariadb`
 1. Create database `workshop`
   * Command to execute in container: `mysql -u root -e "CREATE DATABASE workshop"`
 1. List databases
@@ -373,7 +373,7 @@ ee984e0ade27 spotify  "spotify"              7 hours ago  Up 7 hours            
 ---
 # Building images
 
-.lc[
+.left-column[
 ## Writing Dockerfile
 
 * Recommended way
@@ -386,7 +386,7 @@ ee984e0ade27 spotify  "spotify"              7 hours ago  Up 7 hours            
 ]
 
 --
-.rc[
+.right-column[
 ## Example Dockerfile
 
 ```Dockerfile
@@ -406,7 +406,6 @@ CMD ["/bin/app"]
 * `docker build -t myimage .`
 * Build uses cache - will speed up build process
 ]
-
 
 
 ---
