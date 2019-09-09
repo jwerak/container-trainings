@@ -68,7 +68,7 @@ Container Ecosystem Engineer
 ---
 # About training sessions
 
-* Containers intro
+* Containers intro - http://trainings.docker-skoleni.cz/containers-intro
 * Containers advanced
 * Kubernetes intro
 * Kubernetes advanced
@@ -146,15 +146,15 @@ infrastructure as a code - describe infrastructure and use it to run code
 ---
 ## What are containers
 
-.lc[
+.center[
+<img src="images/container.png" alt="Containers vs VMS" width="40%">
+]
+
+???
+
 - package
 - runtime
 - shared kernel
-]
-
-.rc[
-![Container](images/container.png)
-]
 
 ---
 ## Containers vs VMs
@@ -474,13 +474,58 @@ CMD[“ping”, “localhost”]
 ---
 ## PID1
 
-```Dockerfile
-CMD[“ping”, “localhost”]
-=> /bin/ping localhost
+.lc[
+* Container have it's own PID namespaces
+* PID 1 process is special, usually `init`
+* Please don't run init in containers
+
+
+* Is responsible for:
+  * collection zombies
+  * handling signals
+
+
+* `docker run --init` is a (bad) way
+* Running scripts in containers - make sure exec is used
+
+  * Bad: `nging`
+  * Good: `exec nginx`
+* Shell form vs exec form
+
+  * Shell: `CMD /start.sh`
+  * Exec: `CMD ["/start.sh"]`
+]
+
+--
+
+.rc[
+### Wrong
+```bash
+PID COMMAND
+  1 /bin/bash /start.sh
+  8 nginx: master process nginx -g daemon off;
+  9  \_ nginx: worker process
 ```
 
+
+### Right
+```bash
+PID COMMAND
+  1 nginx: master process nginx -g daemon off;
+  8 nginx: worker process
+```
+]
+
 ---
-# Storing images
+## LAB: PID1
+
+* Build container image from https://github.com/jwerak/container-trainings/tree/master/labs/dockerfile-PID1
+* Start container and execute `ps aux` in this container
+* Which process have PID 1? Is it `nginx`?
+* Use `time docker stop {{ container }}` to stop container and observe **total** time to stop containers
+
+* Fix issue with PID 1 (`nginx` process should have PID 1), and repeat from point **1**
+* How long does it take to stop container with proper PID?
 
 
     </textarea>
