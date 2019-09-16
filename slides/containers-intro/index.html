@@ -477,22 +477,13 @@ CMD[“ping”, “localhost”]
 * Container have it's own PID namespaces
 * PID 1 process is special, usually `init`
 * Please don't run init in containers
-
-
 * Is responsible for:
   * collection zombies
   * handling signals
-
-
 * `docker run --init` is a (bad) way
 * Running scripts in containers - make sure exec is used
-
   * Bad: `nging`
   * Good: `exec nginx`
-* Shell form vs exec form
-
-  * Shell: `CMD /start.sh`
-  * Exec: `CMD ["/start.sh"]`
 ]
 
 --
@@ -525,6 +516,30 @@ PID COMMAND
 
 * Fix issue with PID 1 (`nginx` process should have PID 1), and repeat from point **1**
 * How long does it take to stop container with proper PID?
+
+---
+## Multistage Build
+
+.center[
+<img src="images/multistage_comparison.png" alt="Multistage Build" width="80%">
+]
+
+---
+### Multistage Build - Example
+
+```Dockerfile
+FROhttps://sap-se.zoom.us/j/793715621M golang:1.7.3
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html
+COPY app.go .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
+CMD ["./app"]
+```
 
 
     </textarea>
