@@ -7,6 +7,11 @@ FROM busybox
 # ENTRYPOINT ["ping"]
 # CMD [ "localhost" ]
 
-## CMD with ENV variable
+## Entrypoint and CMD
+# ENTRYPOINT ["ping"]
 # ENV ENDPOINT=localhost
-# CMD ping ${ENDPOINT}
+# CMD [ "${ENDPOINT}" ]
+
+## CMD with ENV variable
+ENV ENDPOINT=localhost
+CMD ping ${ENDPOINT}
